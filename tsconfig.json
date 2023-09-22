@@ -1,9 +1,9 @@
 {
   "extends": "astro/tsconfigs/strict",
   "include": ["src"],
-  "exclude": ["node_modules"],
+  "exclude": ["node_modules", "dist"],
   "compilerOptions": {
     "outDir": "./dist",
-    "typeRoots": ["node_modules/@types"]
+    "types": ["vite/client"]
   }
 }

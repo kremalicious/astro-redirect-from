@@ -1,36 +1,68 @@
 {
   "name": "astro-redirect-from",
   "version": "0.1.0",
-  "description": "🎯 Set redirect urls in your frontmatter within your Astro site's Markdown files. ",
-  "main": "index.js",
+  "description": "🎯 Set redirect urls in your frontmatter within your Astro site's Markdown files. Mimics the behavior of jekyll-redirect-from.",
+  "author": "Matthias Kretschmann <m@kretschmann.io>",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "start": "tsc --watch",
+    "test": "npm run lint && npm run build",
+    "lint": "eslint src/**/*.js",
+    "format": "prettier --write 'src/**/*.{ts,js,json,md}'",
+    "changelog": "auto-changelog -p",
+    "release": "release-it --non-interactive",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "@types/node": "^20.6.3",
+    "auto-changelog": "^2.4.0",
+    "eslint": "^8.49.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "prettier": "^3.0.3",
+    "release-it": "^16.1.5",
+    "typescript": "^5.2.2",
+    "vite": "^4.4.9"
+  },
+  "dependencies": {
+    "astro": "^3.1.2",
+    "fast-glob": "^3.3.1",
+    "gray-matter": "^4.0.3"
+  },
+  "peerDependencies": {
+    "astro": ">= 3"
+  },
+  "release-it": {
+    "hooks": {
+      "before:init": "npm test",
+      "after:bump": "npm run changelog"
+    },
+    "git": {
+      "tagName": "v${version}"
+    },
+    "github": {
+      "release": true
+    },
+    "npm": {
+      "publish": false
+    }
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kremalicious/astro-redirect-from.git"
   },
   "keywords": [
-    "astro-integration"
+    "astro",
+    "astro-integration",
+    "redirect",
+    "redirect-from",
+    "jekyll-migration"
   ],
-  "author": "Matthias Kretschmann <m@kretschmann.io>",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/kremalicious/astro-redirect-from/issues"
   },
-  "homepage": "https://kremalicious.com/astro-redirect-from",
-  "type": "module",
-  "devDependencies": {
-    "@types/node": "^20.6.3",
-    "eslint": "^8.49.0",
-    "eslint-config-prettier": "^9.0.0",
-    "eslint-plugin-prettier": "^5.0.0",
-    "prettier": "^3.0.3",
-    "typescript": "^5.2.2"
-  },
-  "dependencies": {
-    "astro": "^3.1.2",
-    "fast-glob": "^3.3.1",
-    "gray-matter": "^4.0.3"
-  }
+  "homepage": "https://kremalicious.com/astro-redirect-from"
 }

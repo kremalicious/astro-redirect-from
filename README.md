@@ -44,17 +44,17 @@ Astro takes over from there, handling the redirects based on your site's build m
 
 > For statically-generated sites with no adapter installed, this will produce a client redirect using a `<meta http-equiv="refresh">` tag and does not support status codes.
 >
-> When using SSR or with a static adapter in `output: static` mode, status codes are supported. Astro will serve redirected GET requests with a status of 301 and use a status of 308 for any other request method.
+> When using SSR or with a static adapter in `output: static` mode, status codes are supported. Astro will serve redirected `GET` requests with a status of `301` and use a status of `308` for any other request method.
 > [Astro Configuration Reference: redirects](https://docs.astro.build/en/reference/configuration-reference/#redirects)
 
-The plugin is designed to work with various hosting integrations, where most of them generate further redirect files in the places they require so this plugin works in combination with them:
+The plugin is designed to work with various Astro hosting integrations, most of them generate further redirect files in the places they require so this plugin works in combination with them:
 
 - [ ] Netlify
 - [ ] Vercel
 - [ ] Cloudflare
 - [ ] S3
 
-Because Astro integrations are run in the order they are defined in Astro's `integrations` array, this plugin should come before any other integrations which make use of the `redirects` config.
+Because Astro integrations are run in the order they are defined in the `integrations` array, this plugin should come before any other integrations which make use of the `redirects` config.
 
 ## Prerequisites
 
@@ -147,8 +147,8 @@ function getSlugFromFilePath(filePath: string) {
   let slug
 
   // construct slug as full path from either:
-  // - file name, or
-  // - folder name if file name is index.md
+  // - folder name if file name is index.md, or
+  // - file name
   if (parsedPath.base === 'index.md' || parsedPath.base === 'index.mdx') {
     slug = `/${parsedPath.dir}`
   } else {
@@ -161,7 +161,7 @@ function getSlugFromFilePath(filePath: string) {
 
 ## Usage
 
-In your Markdown file's YAML frontmatter, use the key `redirect_from` followed by a list.
+In your Markdown file's frontmatter, use the key `redirect_from` followed by a list.
 
 ```yaml
 ---
