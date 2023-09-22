@@ -1,0 +1,11 @@
+node_modules
+.yarnclean
+.cache
+coverage
+.env
+.env.local
+.env.development
+.nova
+
+# build output
+dist/

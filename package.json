@@ -1,0 +1,36 @@
+{
+  "name": "astro-redirect-from",
+  "version": "0.1.0",
+  "description": "🎯 Set redirect urls in your frontmatter within your Astro site's Markdown files. ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kremalicious/astro-redirect-from.git"
+  },
+  "keywords": [
+    "astro-integration"
+  ],
+  "author": "Matthias Kretschmann <m@kretschmann.io>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kremalicious/astro-redirect-from/issues"
+  },
+  "homepage": "https://kremalicious.com/astro-redirect-from",
+  "type": "module",
+  "devDependencies": {
+    "@types/node": "^20.6.3",
+    "eslint": "^8.49.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "prettier": "^3.0.3",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "astro": "^3.1.2",
+    "fast-glob": "^3.3.1",
+    "gray-matter": "^4.0.3"
+  }
+}
