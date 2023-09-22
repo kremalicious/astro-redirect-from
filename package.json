@@ -38,6 +38,10 @@
   "peerDependencies": {
     "astro": ">= 3"
   },
+  "engines": {
+    "node": ">=18.14.1",
+    "npm": ">=6.14.0"
+  },
   "release-it": {
     "hooks": {
       "before:init": "npm test",
