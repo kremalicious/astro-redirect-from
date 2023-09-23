@@ -1,19 +1,18 @@
-[![astro-redirect-from](https://raw.githubusercontent.com/kremalicious/astro-redirect-from/main/src/astro-redirect-from.png)](https://kremalicious.com/astro-redirect-from/)
+[![astro-redirect-from](https://raw.githubusercontent.com/kremalicious/astro-redirect-from/main/src/astro-redirect-from-teaser.png)](https://kremalicious.com/astro-redirect-from/)
 
 # astro-redirect-from
 
 [![npm package](https://img.shields.io/npm/v/astro-redirect-from.svg)](https://www.npmjs.com/package/astro-redirect-from)
-[![Build Status](https://github.com/kremalicious/astro-redirect-from/workflows/CI/badge.svg)](https://github.com/kremalicious/astro-redirect-from/actions)
-[![Maintainability](https://api.codeclimate.com/v1/badges/9643b2a038a7d338a73a/maintainability)](https://codeclimate.com/github/kremalicious/astro-redirect-from/maintainability)
-[![Coverage](https://api.codeclimate.com/v1/badges/9643b2a038a7d338a73a/test_coverage)](https://codeclimate.com/github/kremalicious/astro-redirect-from/test_coverage)
+[![CI](https://github.com/kremalicious/astro-redirect-from/actions/workflows/ci.yml/badge.svg)](https://github.com/kremalicious/astro-redirect-from/actions/workflows/ci.yml)
+
+<!-- [![Maintainability](https://api.codeclimate.com/v1/badges/9643b2a038a7d338a73a/maintainability)](https://codeclimate.com/github/kremalicious/astro-redirect-from/maintainability)
+[![Coverage](https://api.codeclimate.com/v1/badges/9643b2a038a7d338a73a/test_coverage)](https://codeclimate.com/github/kremalicious/astro-redirect-from/test_coverage) -->
 
 > 🎯 Set redirect urls in your frontmatter within your [Astro](https://astro.build) site's Markdown files. Mimics the behavior of [jekyll-redirect-from](https://github.com/jekyll/jekyll-redirect-from) and [gatsby-redirect-from](https://kremalicious.com/gatsby-redirect-from/).
 >
 > https://kremalicious.com/astro-redirect-from/
 
 ---
-
-Allows you to manage redirects directly from your Markdown files' frontmatter.
 
 **Table of Contents**
 
