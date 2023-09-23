@@ -1,73 +1,43 @@
-import fs from 'node:fs/promises'
 import path from 'node:path'
-import fg from 'fast-glob'
-import matter from 'gray-matter'
-import type { AstroIntegration, AstroIntegrationLogger } from 'astro'
-import { getSlugFromFilePath, writeJson } from './utils'
-
-type PluginOptions = {
-  contentDir?: string
-  getSlug?: (filePath: string) => string
-}
+import type { AstroIntegration } from 'astro'
+import type { PluginOptions } from './types'
+import { getMarkdownFiles, getSlugFromFilePath, writeJson } from './utils'
+import { getRedirects } from './getRedirects'
 
 export default function astroRedirectFrom({
   contentDir = 'src/pages/',
   getSlug = getSlugFromFilePath
-}: PluginOptions = {}): AstroIntegration {
-  const sourceDir = path.join(process.cwd(), contentDir)
+}: PluginOptions): AstroIntegration {
+  const contentDirPath = path.join(process.cwd(), contentDir)
 
   return {
     name: 'redirect-from',
     hooks: {
-      'astro:config:setup': async ({
-        updateConfig,
-        logger
-      }: {
-        updateConfig: (newConfig: Record<string, any>) => void
-        logger: AstroIntegrationLogger
-      }) => {
-        const redirects: { [old: string]: string } = {}
-
+      'astro:config:setup': async ({ config, updateConfig, logger }) => {
         try {
-          const markdownFiles = await fg.glob('./**/*.{md,mdx}', {
-            cwd: sourceDir
-          })
+          const markdownFiles = await getMarkdownFiles(contentDirPath)
           if (!markdownFiles?.length) {
             logger.warn('No markdown files found')
             return
           }
 
-          for (const markdownFile of markdownFiles) {
-            const fileContent = await fs.readFile(
-              path.join(sourceDir, markdownFile),
-              'utf-8'
-            )
-
-            const { data: frontmatter } = matter(fileContent)
-            const postRedirectFrom: string[] = frontmatter?.redirect_from
-            if (
-              !frontmatter ||
-              !postRedirectFrom ||
-              // filter out drafts in production
-              (import.meta.env.PROD && frontmatter.draft === true)
-            )
-              continue
-
-            let postSlug = frontmatter.slug
-            if (!postSlug) postSlug = getSlug(markdownFile)
-            if (!postSlug) continue
-
-            for (const slug of postRedirectFrom) {
-              redirects[slug] = postSlug
-            }
+          const redirects = await getRedirects(
+            markdownFiles,
+            contentDirPath,
+            getSlug
+          )
+          if (!redirects || !Object.keys(redirects).length) {
+            logger.info('No redirects found in markdown files')
+            return
           }
 
           updateConfig({ redirects })
 
-          await writeJson(
-            path.join(process.cwd(), '.astro', 'redirect_from.json'),
-            redirects
+          const redirectFilePath = path.join(
+            config.cacheDir.pathname, // Default is ./node_modules/.astro/
+            'redirect_from.json'
           )
+          await writeJson(redirectFilePath, redirects)
 
           logger.info(
             `Added ${Object.keys(redirects).length} redirects to Astro config`

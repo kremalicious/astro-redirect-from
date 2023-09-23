@@ -18,6 +18,12 @@
     "release": "release-it --non-interactive",
     "prepublishOnly": "npm run build"
   },
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
   "devDependencies": {
     "@types/node": "^20.6.3",
     "@typescript-eslint/eslint-plugin": "^6.7.2",
@@ -32,7 +38,7 @@
   },
   "dependencies": {
     "astro": ">= 3",
-    "fast-glob": "^3.3.1",
+    "globby": "^13.2.2",
     "gray-matter": "^4.0.3"
   },
   "peerDependencies": {

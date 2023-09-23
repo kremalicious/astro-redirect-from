@@ -4,6 +4,10 @@
   "exclude": ["node_modules", "dist"],
   "compilerOptions": {
     "outDir": "./dist",
-    "types": ["vite/client"]
+    "types": ["vite/client"],
+    "declaration": true,
+    // ovewrite astro/tsconfigs values
+    "noEmit": false,
+    "allowImportingTsExtensions": false
   }
 }
