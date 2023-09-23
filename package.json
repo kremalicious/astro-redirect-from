@@ -12,7 +12,7 @@
     "build": "rm -rf ./dist && tsc",
     "start": "rm -rf ./dist && tsc --watch",
     "test": "npm run lint && npm run typecheck && npm run test:unit",
-    "test:unit": "vitest run --coverage --config './test/vitest.config.ts'",
+    "test:unit": "vitest run --coverage --config ./test/vitest.config.ts",
     "lint": "eslint src/",
     "typecheck": "tsc --noEmit",
     "format": "prettier --write 'src/**/*.{ts,js,json,md}'",
