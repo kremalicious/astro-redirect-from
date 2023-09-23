@@ -1,5 +1,5 @@
 import path from 'node:path'
-import type { Redirects } from './types'
+import type { Redirects } from '.'
 import { getMarkdownFrontmatter } from './utils'
 
 export async function getRedirects(

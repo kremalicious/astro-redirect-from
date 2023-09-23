@@ -1,8 +1,16 @@
 import path from 'node:path'
 import type { AstroIntegration } from 'astro'
-import type { PluginOptions } from './types'
 import { getMarkdownFiles, getSlugFromFilePath, writeJson } from './utils'
 import { getRedirects } from './getRedirects'
+
+export type GetSlug = (filePath: string) => string
+
+export type PluginOptions = {
+  contentDir?: string
+  getSlug?: GetSlug
+}
+
+export type Redirects = { [old: string]: string }
 
 export default function astroRedirectFrom({
   contentDir = 'src/pages/',

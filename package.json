@@ -5,8 +5,9 @@
   "author": "Matthias Kretschmann <m@kretschmann.io>",
   "homepage": "https://kremalicious.com/astro-redirect-from",
   "license": "MIT",
-  "main": "dist/index.js",
   "type": "module",
+  "main": "dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsc",
     "start": "tsc --watch",
@@ -17,9 +18,6 @@
     "changelog": "auto-changelog -p",
     "release": "release-it --non-interactive",
     "prepublishOnly": "npm run build"
-  },
-  "exports": {
-    ".": "./dist/index.js"
   },
   "files": [
     "dist"
