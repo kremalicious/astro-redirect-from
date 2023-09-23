@@ -11,7 +11,8 @@
   "scripts": {
     "build": "rm -rf ./dist && tsc",
     "start": "rm -rf ./dist && tsc --watch",
-    "test": "npm run lint && npm run typecheck && npm run build",
+    "test": "npm run lint && npm run typecheck && npm run test:unit",
+    "test:unit": "vitest run --coverage --config './test/vitest.config.ts'",
     "lint": "eslint src/",
     "typecheck": "tsc --noEmit",
     "format": "prettier --write 'src/**/*.{ts,js,json,md}'",
@@ -25,6 +26,7 @@
   "devDependencies": {
     "@types/node": "^20.6.3",
     "@typescript-eslint/eslint-plugin": "^6.7.2",
+    "@vitest/coverage-v8": "^0.34.5",
     "auto-changelog": "^2.4.0",
     "eslint": "^8.49.0",
     "eslint-config-prettier": "^9.0.0",
@@ -32,7 +34,8 @@
     "prettier": "^3.0.3",
     "release-it": "^16.1.5",
     "typescript": "^5.2.2",
-    "vite": "^4.4.9"
+    "vite": "^4.4.9",
+    "vitest": "^0.34.5"
   },
   "dependencies": {
     "astro": ">= 3",

@@ -23,6 +23,7 @@
 - [Usage](#usage)
 - [More Documentation](#more-documentation)
 - [Plugin Development](#plugin-development)
+  - [Testing](#testing)
 - [Changelog](#changelog)
 - [License](#license)
 
@@ -163,6 +164,18 @@ npm run build
 # publishing to npm & GitHub releases
 # uses https://github.com/webpro/release-it
 npm run release
+```
+
+### Testing
+
+```bash
+npm run lint
+npm run typecheck
+# runs unit tests through vitest
+npm run test:unit
+
+# all of the above commands together
+npm test
 ```
 
 ## Changelog
