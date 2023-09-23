@@ -11,7 +11,7 @@ describe('getMarkdownFiles', () => {
   it('should return an array of markdown files from the given directory', async () => {
     const files = await getMarkdownFiles('./test/__fixtures__/markdown')
     expect(files).toBeInstanceOf(Array)
-    expect(files).toHaveLength(2)
+    expect(files).toHaveLength(4)
   })
 })
 
@@ -28,17 +28,17 @@ describe('getMarkdownFrontmatter', () => {
 describe('getSlugFromFilePath', () => {
   it('should return slug for testDir/testFile.md', () => {
     const slug = getSlugFromFilePath('testDir/testFile.md')
-    expect(slug).toBe('/testDir/testFile')
+    expect(slug).toBe('testDir/testFile')
   })
 
   it('should return slug for dir/testDir/index.md', () => {
     const slug = getSlugFromFilePath('dir/testDir/index.md')
-    expect(slug).toBe('/dir/testDir')
+    expect(slug).toBe('dir/testDir')
   })
 
   it('should return slug for dir/dir2/testDir/index.md', () => {
     const slug = getSlugFromFilePath('dir/dir2/testDir/index.md')
-    expect(slug).toBe('/dir/dir2/testDir')
+    expect(slug).toBe('dir/dir2/testDir')
   })
 })
 
@@ -49,7 +49,7 @@ describe('writeJson', () => {
     try {
       await fs.unlink(testFilePath)
     } catch (error) {
-      console.error('Error cleaning up test file:', error)
+      return
     }
   })
 
