@@ -20,7 +20,7 @@
     "prepublishOnly": "npm run build"
   },
   "files": [
-    "dist"
+    "./dist"
   ],
   "devDependencies": {
     "@types/node": "^20.6.3",

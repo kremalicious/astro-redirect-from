@@ -1,7 +1,7 @@
 import path from 'node:path'
 import type { AstroIntegration } from 'astro'
-import { getMarkdownFiles, getSlugFromFilePath, writeJson } from './utils'
-import { getRedirects } from './getRedirects'
+import { getMarkdownFiles, getSlugFromFilePath, writeJson } from './utils.js'
+import { getRedirects } from './getRedirects.js'
 
 export type GetSlug = (filePath: string) => string
 
