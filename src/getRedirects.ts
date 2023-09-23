@@ -5,7 +5,8 @@ import { getMarkdownFrontmatter } from './utils.js'
 export async function getRedirects(
   files: string[],
   srcDir: string,
-  getSlug: (filePath: string) => string
+  getSlug: (filePath: string) => string,
+  command: 'dev' | 'build' | 'preview'
 ) {
   const redirects: Redirects = {}
 
@@ -15,7 +16,7 @@ export async function getRedirects(
     if (
       !frontmatter ||
       !redirectFrom ||
-      (import.meta.env.PROD && frontmatter.draft === true)
+      (command === 'build' && frontmatter.draft === true)
     )
       continue
 

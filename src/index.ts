@@ -21,7 +21,12 @@ export default function astroRedirectFrom({
   return {
     name: 'redirect-from',
     hooks: {
-      'astro:config:setup': async ({ config, updateConfig, logger }) => {
+      'astro:config:setup': async ({
+        config,
+        command,
+        updateConfig,
+        logger
+      }) => {
         try {
           const markdownFiles = await getMarkdownFiles(contentDirPath)
           if (!markdownFiles?.length) {
@@ -32,7 +37,8 @@ export default function astroRedirectFrom({
           const redirects = await getRedirects(
             markdownFiles,
             contentDirPath,
-            getSlug
+            getSlug,
+            command
           )
           if (!redirects || !Object.keys(redirects).length) {
             logger.info('No redirects found in markdown files')
