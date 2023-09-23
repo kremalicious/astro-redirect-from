@@ -108,7 +108,7 @@ Specify a different directory for your Markdown files, relative to the project r
 
 _Default: `getSlugFromFilePath()`, see below_
 
-If you need a custom slug structure, pass a function to construct your slug from the file path.
+If you need a custom slug structure, pass a function to construct your slug from the file path. The file path should be relative to the content directory.
 
 If you use a `slug` field in your frontmatter, this will be preferred by the plugin and passing any `getSlug` function will have no effect in that case.
 
