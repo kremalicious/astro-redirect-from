@@ -6,11 +6,11 @@
   "homepage": "https://kremalicious.com/astro-redirect-from",
   "license": "MIT",
   "type": "module",
-  "main": "dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/@types/index.d.ts",
   "scripts": {
-    "build": "tsc",
-    "start": "tsc --watch",
+    "build": "rm -r ./dist && tsc",
+    "start": "rm -r ./dist && tsc --watch",
     "test": "npm run lint && npm run typecheck && npm run build",
     "lint": "eslint src/",
     "typecheck": "tsc --noEmit",
@@ -48,7 +48,6 @@
   },
   "release-it": {
     "hooks": {
-      "before:init": "npm test",
       "after:bump": "npm run changelog"
     },
     "git": {
@@ -66,7 +65,8 @@
     "astro-integration",
     "redirect",
     "redirect-from",
-    "jekyll-migration"
+    "jekyll-migration",
+    "markdown"
   ],
   "repository": {
     "type": "git",
