@@ -9,8 +9,8 @@
   "main": "./dist/index.js",
   "types": "./dist/@types/index.d.ts",
   "scripts": {
-    "build": "rm -r ./dist && tsc",
-    "start": "rm -r ./dist && tsc --watch",
+    "build": "rm -rf ./dist && tsc",
+    "start": "rm -rf ./dist && tsc --watch",
     "test": "npm run lint && npm run typecheck && npm run build",
     "lint": "eslint src/",
     "typecheck": "tsc --noEmit",
