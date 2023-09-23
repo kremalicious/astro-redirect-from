@@ -20,11 +20,14 @@ export async function getRedirects(
     )
       continue
 
-    let postSlug = frontmatter.slug
-    if (!postSlug) postSlug = getSlug(file)
+    let postSlug = frontmatter.slug || getSlug(file)
     if (!postSlug) continue
 
-    for (const slug of redirectFrom) {
+    // Prepend all slugs with a slash if not present
+    if (!postSlug.startsWith('/')) postSlug = `/${postSlug}`
+
+    for (let slug of redirectFrom) {
+      if (!slug.startsWith('/')) slug = `/${slug}`
       redirects[slug] = postSlug
     }
   }
