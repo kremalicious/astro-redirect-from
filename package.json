@@ -65,11 +65,13 @@
   },
   "keywords": [
     "astro",
+    "withastro",
     "astro-integration",
     "redirect",
     "redirect-from",
     "jekyll-migration",
-    "markdown"
+    "markdown",
+    "seo"
   ],
   "repository": {
     "type": "git",
