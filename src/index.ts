@@ -12,11 +12,12 @@ export type PluginOptions = {
 
 export type Redirects = { [old: string]: string }
 
-export default function astroRedirectFrom({
-  contentDir = 'src/pages/',
-  getSlug = getSlugFromFilePath
-}: PluginOptions): AstroIntegration {
-  const contentDirPath = path.join(process.cwd(), contentDir)
+export default function astroRedirectFrom(
+  options?: PluginOptions
+): AstroIntegration {
+  const _contentDir = options?.contentDir || 'src/pages/'
+  const _getSlug = options?.getSlug || getSlugFromFilePath
+  const _contentDirPath = path.join(process.cwd(), _contentDir)
 
   return {
     name: 'redirect-from',
@@ -28,7 +29,7 @@ export default function astroRedirectFrom({
         logger
       }) => {
         try {
-          const markdownFiles = await getMarkdownFiles(contentDirPath)
+          const markdownFiles = await getMarkdownFiles(_contentDirPath)
           if (!markdownFiles?.length) {
             logger.warn('No markdown files found')
             return
@@ -36,8 +37,8 @@ export default function astroRedirectFrom({
 
           const redirects = await getRedirects(
             markdownFiles,
-            contentDirPath,
-            getSlug,
+            _contentDirPath,
+            _getSlug,
             command
           )
           if (!redirects || !Object.keys(redirects).length) {
