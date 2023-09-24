@@ -4,6 +4,7 @@ import {
   getMarkdownFiles,
   getMarkdownFrontmatter,
   getSlugFromFilePath,
+  prependForwardSlash,
   writeJson
 } from '../src/utils'
 
@@ -61,5 +62,31 @@ describe('writeJson', () => {
     const fileContent = await fs.readFile(testFilePath, { encoding: 'utf-8' })
     const parsedContent = JSON.parse(fileContent)
     expect(parsedContent).toEqual(testData)
+  })
+})
+
+describe('prependForwardSlash', () => {
+  it('should prepend a forward slash if it does not start with one', () => {
+    const stringWithSlash = '/alreadyHasSlash'
+    const result1 = prependForwardSlash(stringWithSlash)
+    expect(result1).toBe('/alreadyHasSlash')
+  })
+
+  it('should prepend a forward slash', () => {
+    const stringWithoutSlash = 'noSlashAtStart'
+    const result2 = prependForwardSlash(stringWithoutSlash)
+    expect(result2).toBe('/noSlashAtStart')
+  })
+
+  it('should return a single forward slash if the input string is empty', () => {
+    const emptyString = ''
+    const result3 = prependForwardSlash(emptyString)
+    expect(result3).toBe('/')
+  })
+
+  it('should return a single forward slash if a slash is passed', () => {
+    const string = '/'
+    const result4 = prependForwardSlash(string)
+    expect(result4).toBe('/')
   })
 })

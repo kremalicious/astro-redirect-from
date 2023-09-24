@@ -38,3 +38,7 @@ export async function writeJson<T>(path: PathLike, data: T) {
     encoding: 'utf-8'
   })
 }
+
+export function prependForwardSlash(str: string) {
+  return str.startsWith('/') ? str : '/' + str
+}
