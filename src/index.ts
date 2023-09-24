@@ -10,57 +10,63 @@ export type PluginOptions = {
   getSlug?: GetSlug
 }
 
+export type HookOptions = Parameters<
+  AstroIntegration['hooks']['astro:config:setup'] & { 0: any }
+>[0]
+
 export type Redirects = { [old: string]: string }
+
+export async function initPlugin(
+  hookOptions: HookOptions,
+  options?: PluginOptions
+) {
+  const _contentDir = options?.contentDir || 'src/pages/'
+  const _getSlug = options?.getSlug || getSlugFromFilePath
+  const _contentDirPath = path.join(process.cwd(), _contentDir)
+  const { logger, config, command, updateConfig } = hookOptions
+
+  try {
+    const markdownFiles = await getMarkdownFiles(_contentDirPath)
+    if (!markdownFiles?.length) {
+      logger.warn('No markdown files found')
+      return
+    }
+
+    const redirects = await getRedirects(
+      markdownFiles,
+      _contentDirPath,
+      _getSlug,
+      command
+    )
+    if (!redirects || !Object.keys(redirects).length) {
+      logger.warn('No redirects found in markdown files')
+      return
+    }
+
+    updateConfig({ redirects })
+
+    const redirectFilePath = path.join(
+      config.cacheDir.pathname, // Default is ./node_modules/.astro/
+      'redirect_from.json'
+    )
+    await writeJson(redirectFilePath, redirects)
+
+    logger.info(
+      `Added ${Object.keys(redirects).length} redirects to Astro config`
+    )
+  } catch (error: any) {
+    logger.error((error as Error).message)
+  }
+}
 
 export default function astroRedirectFrom(
   options?: PluginOptions
 ): AstroIntegration {
-  const _contentDir = options?.contentDir || 'src/pages/'
-  const _getSlug = options?.getSlug || getSlugFromFilePath
-  const _contentDirPath = path.join(process.cwd(), _contentDir)
-
   return {
     name: 'redirect-from',
     hooks: {
-      'astro:config:setup': async ({
-        config,
-        command,
-        updateConfig,
-        logger
-      }) => {
-        try {
-          const markdownFiles = await getMarkdownFiles(_contentDirPath)
-          if (!markdownFiles?.length) {
-            logger.warn('No markdown files found')
-            return
-          }
-
-          const redirects = await getRedirects(
-            markdownFiles,
-            _contentDirPath,
-            _getSlug,
-            command
-          )
-          if (!redirects || !Object.keys(redirects).length) {
-            logger.info('No redirects found in markdown files')
-            return
-          }
-
-          updateConfig({ redirects })
-
-          const redirectFilePath = path.join(
-            config.cacheDir.pathname, // Default is ./node_modules/.astro/
-            'redirect_from.json'
-          )
-          await writeJson(redirectFilePath, redirects)
-
-          logger.info(
-            `Added ${Object.keys(redirects).length} redirects to Astro config`
-          )
-        } catch (error: any) {
-          logger.error((error as Error).message)
-        }
-      }
+      'astro:config:setup': async (hookOptions) =>
+        await initPlugin(hookOptions, options)
     }
   }
 }
