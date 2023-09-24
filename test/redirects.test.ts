@@ -19,8 +19,8 @@ describe('getRedirects', async () => {
     expect(result).toStrictEqual({
       '/hello-astro-old': '/hello-astroooooo',
       '/hello-astro-old-234837': '/hello-astroooooo',
-      '/hello-world-old': '/hello-world',
-      '/hello-world-old-234837': '/hello-world',
+      '/hello-world-old': '/posts/hello-world',
+      '/hello-world-old-234837': '/posts/hello-world',
       '/hello-markdown-old': '/hello-markdown',
       '/hello-markdown-old-234837': '/hello-markdown'
     })

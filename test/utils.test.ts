@@ -18,7 +18,7 @@ describe('getMarkdownFiles', () => {
 describe('getMarkdownFrontmatter', () => {
   it('should extract frontmatter from a markdown file', async () => {
     const frontmatter = await getMarkdownFrontmatter(
-      './test/__fixtures__/markdown/hello-world.md'
+      './test/__fixtures__/markdown/hello-draft.md'
     )
     expect(frontmatter).toBeInstanceOf(Object)
     expect(frontmatter.redirect_from).toBeDefined()
