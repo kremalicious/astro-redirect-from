@@ -11,14 +11,16 @@
   "scripts": {
     "build": "rm -rf ./dist && tsc",
     "start": "rm -rf ./dist && tsc --watch",
-    "test": "npm run lint && npm run typecheck && npm run test:unit",
+    "test": "npm run validate && npm run test:unit",
     "test:unit": "vitest run --coverage --config ./test/vitest.config.ts",
-    "lint": "eslint src/",
-    "typecheck": "tsc --noEmit",
+    "lint": "eslint --ignore-path .gitignore ./{src,test}/",
+    "typecheck": "tsc --noEmit --pretty",
     "format": "prettier --write 'src/**/*.{ts,js,json,md}'",
     "changelog": "auto-changelog -p",
     "release": "release-it --non-interactive",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "prepare": "husky install",
+    "validate": "run-p --silent typecheck lint"
   },
   "files": [
     "./dist"
@@ -31,6 +33,8 @@
     "eslint": "^8.50.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",
+    "husky": "^8.0.0",
+    "npm-run-all": "^4.1.5",
     "prettier": "^3.0.3",
     "release-it": "^16.2.1",
     "typescript": "^5.2.2",
