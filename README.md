@@ -180,9 +180,9 @@ See [CHANGELOG.md](CHANGELOG.md).
 
 ## Sponsorship
 
-[**Say Thanks With Web3 →**](https://kremalicious.com/thanks)
+[![](https://img.shields.io/static/v1?label=Say%20Thanks%20With%20Web3&labelColor=%2343a699&message=%E2%9D%A4&logo=Ethereum&color=%23fe8e86&style=for-the-badge)](https://kremalicious.com/thanks)
 
-<iframe src="https://github.com/sponsors/kremalicious/button" title="Sponsor kremalicious" height="32" width="114" style="border: 0; border-radius: 6px; margin-top: 12px;"></iframe>
+[![](https://img.shields.io/static/v1?label=Say%20Thanks%20With%20GitHub&labelColor=%2343a699&message=%E2%9D%A4&logo=GitHub&color=%23fe8e86&style=for-the-badge)](https://github.com/sponsors/kremalicious)
 
 ## License
 
