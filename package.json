@@ -80,5 +80,15 @@
   },
   "bugs": {
     "url": "https://github.com/kremalicious/astro-redirect-from/issues"
-  }
+  },
+  "funding": [
+    {
+      "type": "github",
+      "url": "https://github.com/sponsors/kremalicious"
+    },
+    {
+      "type": "individual",
+      "url": "https://kremalicious.com/thanks"
+    }
+  ]
 }
