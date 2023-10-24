@@ -25,6 +25,7 @@
 - [Plugin Development](#plugin-development)
   - [Testing](#testing)
 - [Changelog](#changelog)
+- [Sponsorship](#sponsorship)
 - [License](#license)
 
 ---
@@ -119,9 +120,9 @@ function getSlugFromFilePath(filePath: string) {
   // - folder name if file name is index.md, or
   // - file name
   if (parsedPath.base === 'index.md' || parsedPath.base === 'index.mdx') {
-    slug = `/${parsedPath.dir}`
+    slug = `${parsedPath.dir}`
   } else {
-    slug = `/${parsedPath.dir}/${parsedPath.name}`
+    slug = `${parsedPath.dir}/${parsedPath.name}`
   }
 
   return slug
@@ -177,6 +178,12 @@ npm test
 
 See [CHANGELOG.md](CHANGELOG.md).
 
+## Sponsorship
+
+[**Say Thanks With Web3 →**](https://kremalicious.com/thanks)
+
+<iframe src="https://github.com/sponsors/kremalicious/button" title="Sponsor kremalicious" height="32" width="114" style="border: 0; border-radius: 6px; margin-top: 12px;"></iframe>
+
 ## License
 
 The MIT License
@@ -192,9 +199,3 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 ---
 
 Made with ♥ by [Matthias Kretschmann](https://matthiaskretschmann.com) ([@kremalicious](https://github.com/kremalicious))
-
-Say thanks with BTC:
-`35UUssHexVK48jbiSgTxa4QihEoCqrwCTG`
-
-Say thanks with ETH:
-`krema.eth`
