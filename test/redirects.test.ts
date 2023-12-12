@@ -42,23 +42,23 @@ describe('createRedirect', () => {
       '/old-url-1': '/new-url',
       '/old-url-2': '/new-url'
     })
+  })
 
-    it('should prepend slash everywhere', () => {
-      const initialRedirects: Record<string, string> = {}
-      const redirectFrom = ['old-url-1']
-      let postSlug = '/new-url'
+  it('should prepend slash everywhere', () => {
+    const initialRedirects: Record<string, string> = {}
+    const redirectFrom = ['old-url-1']
+    let postSlug = '/new-url'
 
-      let result = createRedirect(initialRedirects, redirectFrom, postSlug)
+    let result = createRedirect(initialRedirects, redirectFrom, postSlug)
 
-      expect(result).toStrictEqual({
-        '/old-url-1': '/new-url'
-      })
+    expect(result).toStrictEqual({
+      '/old-url-1': '/new-url'
+    })
 
-      postSlug = 'new-url'
-      result = createRedirect(initialRedirects, redirectFrom, postSlug)
-      expect(result).toStrictEqual({
-        '/old-url-1': '/new-url'
-      })
+    postSlug = 'new-url'
+    result = createRedirect(initialRedirects, redirectFrom, postSlug)
+    expect(result).toStrictEqual({
+      '/old-url-1': '/new-url'
     })
   })
 })
