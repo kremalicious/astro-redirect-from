@@ -1,7 +1,7 @@
 import path from 'node:path'
 import type { Redirects } from '.'
-import { getMarkdownFrontmatter } from './utils.js'
 import { createRedirect } from './createRedirect.js'
+import { getMarkdownFrontmatter } from './utils.js'
 
 export async function getRedirects(
   files: string[],

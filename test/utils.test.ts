@@ -1,5 +1,5 @@
-import { expect, describe, it, afterAll } from 'vitest'
 import { promises as fs } from 'node:fs'
+import { afterAll, describe, expect, it } from 'vitest'
 import {
   getMarkdownFiles,
   getMarkdownFrontmatter,

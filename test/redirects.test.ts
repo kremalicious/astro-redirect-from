@@ -1,7 +1,7 @@
-import { expect, it, describe } from 'vitest'
+import { describe, expect, it } from 'vitest'
+import { createRedirect } from '../src/createRedirect'
 import { getRedirects } from '../src/getRedirects'
 import { getMarkdownFiles, getSlugFromFilePath } from '../src/utils'
-import { createRedirect } from '../src/createRedirect'
 
 describe('getRedirects', async () => {
   // handling this more as an integration test
