@@ -1,7 +1,7 @@
-import { describe, it, expect, vi } from 'vitest'
-import astroRedirectFrom, { initPlugin } from '../src/index'
-import * as utils from '../src/utils'
+import { describe, expect, it, vi } from 'vitest'
 import * as redirects from '../src/getRedirects'
+import astroRedirectFrom, { type HookOptions, initPlugin } from '../src/index'
+import * as utils from '../src/utils'
 
 const mockLogger = {
   warn: vi.fn(),
@@ -16,14 +16,14 @@ const hookOptionsMock = {
   },
   command: 'dev',
   updateConfig: vi.fn()
-}
+} as unknown as HookOptions
 
 describe('initPlugin', () => {
   it('should handle no markdown files scenario', async () => {
     const getMarkdownFilesSpy = vi.spyOn(utils, 'getMarkdownFiles')
     getMarkdownFilesSpy.mockResolvedValue([])
 
-    await initPlugin(hookOptionsMock as any)
+    await initPlugin(hookOptionsMock)
 
     expect(mockLogger.warn).toBeCalledWith('No markdown files found')
     expect(hookOptionsMock.updateConfig).not.toBeCalled()
@@ -36,7 +36,7 @@ describe('initPlugin', () => {
     const getRedirectsSpy = vi.spyOn(redirects, 'getRedirects')
     getRedirectsSpy.mockResolvedValue({})
 
-    await initPlugin(hookOptionsMock as any)
+    await initPlugin(hookOptionsMock)
 
     expect(mockLogger.warn).toBeCalledWith(
       'No redirects found in markdown files'
@@ -54,7 +54,7 @@ describe('initPlugin', () => {
     const writeJsonSpy = vi.spyOn(utils, 'writeJson')
     writeJsonSpy.mockImplementation(() => Promise.resolve())
 
-    await initPlugin(hookOptionsMock as any)
+    await initPlugin(hookOptionsMock)
 
     expect(hookOptionsMock.updateConfig).toBeCalledWith({
       redirects: { '/old': '/new' }
@@ -71,7 +71,10 @@ describe('initPlugin', () => {
       throw new Error('Mocked error')
     })
 
-    await initPlugin({ ...hookOptionsMock, logger: mockLogger } as any)
+    await initPlugin({
+      ...hookOptionsMock,
+      logger: mockLogger as unknown as HookOptions['logger']
+    })
 
     expect(mockLogger.error).toHaveBeenCalledWith('Mocked error')
   })
@@ -102,7 +105,7 @@ describe('astroRedirectFrom', () => {
 
     // Invoke the hook
     if (integration.hooks['astro:config:setup']) {
-      await integration.hooks['astro:config:setup'](hookOptionsMock as any)
+      await integration.hooks['astro:config:setup'](hookOptionsMock)
     }
   })
 })

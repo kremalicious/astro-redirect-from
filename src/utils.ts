@@ -1,5 +1,5 @@
-import path from 'node:path'
 import { promises as fs, type PathLike } from 'node:fs'
+import path from 'node:path'
 import { globby } from 'globby'
 import matter from 'gray-matter'
 
@@ -19,7 +19,7 @@ export async function getMarkdownFrontmatter(filePath: string) {
 
 export function getSlugFromFilePath(filePath: string) {
   const parsedPath = path.parse(filePath)
-  let slug
+  let slug: string
 
   // construct slug as full path from either:
   // - folder name if file name is index.md, or
@@ -40,5 +40,5 @@ export async function writeJson<T>(path: PathLike, data: T) {
 }
 
 export function prependForwardSlash(str: string) {
-  return str.startsWith('/') ? str : '/' + str
+  return str.startsWith('/') ? str : `/${str}`
 }

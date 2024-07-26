@@ -1,7 +1,7 @@
 import path from 'node:path'
 import type { AstroIntegration } from 'astro'
-import { getMarkdownFiles, getSlugFromFilePath, writeJson } from './utils.js'
 import { getRedirects } from './getRedirects.js'
+import { getMarkdownFiles, getSlugFromFilePath, writeJson } from './utils.js'
 
 export type GetSlug = (filePath: string) => string
 
@@ -11,7 +11,7 @@ export type PluginOptions = {
 }
 
 export type HookOptions = Parameters<
-  AstroIntegration['hooks']['astro:config:setup'] & { 0: any }
+  AstroIntegration['hooks']['astro:config:setup'] & { 0: number }
 >[0]
 
 export type Redirects = { [old: string]: string }
@@ -54,7 +54,7 @@ export async function initPlugin(
     logger.info(
       `Added ${Object.keys(redirects).length} redirects to Astro config`
     )
-  } catch (error: any) {
+  } catch (error: unknown) {
     logger.error((error as Error).message)
   }
 }

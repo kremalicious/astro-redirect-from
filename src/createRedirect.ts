@@ -6,11 +6,11 @@ export function createRedirect(
   redirectFrom: string[],
   postSlug: string
 ) {
-  postSlug = prependForwardSlash(postSlug)
+  const newPostSlug = prependForwardSlash(postSlug)
 
   for (let slug of redirectFrom) {
     slug = prependForwardSlash(slug)
-    redirects[slug] = postSlug
+    redirects[slug] = newPostSlug
   }
 
   return redirects
