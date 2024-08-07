@@ -3,6 +3,8 @@ import { createRedirect } from '../src/createRedirect'
 import { getRedirects } from '../src/getRedirects'
 import { getMarkdownFiles, getSlugFromFilePath } from '../src/utils'
 
+
+
 describe('getRedirects', async () => {
   // handling this more as an integration test
   const srcDir = './test/__fixtures__/markdown'
@@ -13,7 +15,8 @@ describe('getRedirects', async () => {
       files,
       srcDir,
       getSlugFromFilePath,
-      'build'
+      'build',
+      console
     )
     expect(result).toBeInstanceOf(Object)
     expect(result).toStrictEqual({
