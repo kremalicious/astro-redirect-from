@@ -23,6 +23,7 @@ describe('getRedirects', async () => {
       '/hello-astro-old': '/hello-astroooooo',
       '/hello-astro-old-234837': '/hello-astroooooo',
       '/hello-world-old': '/posts/hello-world',
+      "/hello-once": "/posts/hello-once",
       '/hello-world-old-234837': '/posts/hello-world',
       '/hello-markdown-old': '/hello-markdown',
       '/hello-markdown-old-234837': '/hello-markdown'
