@@ -1,4 +1,5 @@
 import path from 'node:path'
+import fs from 'node:fs'
 import type { AstroIntegration } from 'astro'
 import { getRedirects } from './getRedirects.js'
 import { getMarkdownFiles, getSlugFromFilePath, writeJson } from './utils.js'
