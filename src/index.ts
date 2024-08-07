@@ -36,7 +36,8 @@ export async function initPlugin(
       markdownFiles,
       _contentDirPath,
       _getSlug,
-      command
+      command,
+      logger
     )
     if (!redirects || !Object.keys(redirects).length) {
       logger.warn('No redirects found in markdown files')
