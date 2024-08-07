@@ -4,7 +4,7 @@ import { createRedirect } from './createRedirect.js'
 import { getMarkdownFrontmatter } from './utils.js'
 
 function isValidDomainRelativePath(path: string): boolean {
-  return path.startsWith('/') && !path.includes('://')
+  return !path.includes('://') && !path.includes(' ') && !path.includes('\n')
 }
 
 export async function getRedirects(
@@ -20,12 +20,14 @@ export async function getRedirects(
     const frontmatter = await getMarkdownFrontmatter(path.join(srcDir, file))
     let redirectFrom: string[] = []
 
-    if (typeof frontmatter?.redirect_from === 'string') {
-      redirectFrom = [frontmatter.redirect_from]
-    } else if (Array.isArray(frontmatter?.redirect_from)) {
-      redirectFrom = frontmatter.redirect_from
-    } else if (frontmatter?.redirect_from) {
-      logger.warn(`Unexpected type for redirect_from in file: ${file}`)
+    if (frontmatter?.redirect_from){
+      if (typeof frontmatter?.redirect_from === 'string') {
+        redirectFrom = [frontmatter.redirect_from]
+      } else if (Array.isArray(frontmatter?.redirect_from)) {
+        redirectFrom = frontmatter.redirect_from
+      } else {
+        logger.warn(`Unexpected type ${typeof frontmatter?.redirect_from} for redirect_from in file: ${file}`)
+      }
     }
 
     redirectFrom = redirectFrom.filter(redirect => {
