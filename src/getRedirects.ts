@@ -12,7 +12,8 @@ export async function getRedirects(
   srcDir: string,
   getSlug: (filePath: string) => string,
   command: 'dev' | 'build' | 'preview',
-  logger: any }
+  logger,
+  }
 ) {
   let redirects: Redirects = {}
 
@@ -31,10 +32,9 @@ export async function getRedirects(
     redirectFrom = redirectFrom.filter(redirect => {
       if (isValidDomainRelativePath(redirect)) {
         return true
-      } else {
-        logger.warn(`Invalid redirect path: ${redirect} in file: ${file}`)
-        return false
       }
+      logger.warn(`Invalid redirect path: ${redirect} in file: ${file}`)
+      return false
     })
 
     const isExcluded = command === 'build' && frontmatter?.draft === true
