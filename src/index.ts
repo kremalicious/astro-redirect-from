@@ -46,6 +46,9 @@ export async function initPlugin(
 
     updateConfig({ redirects })
 
+    if (!fs.existsSync(config.cacheDir.pathname)) {
+      fs.mkdirSync(config.cacheDir.pathname, { recursive: true })
+    }
     const redirectFilePath = path.join(
       config.cacheDir.pathname, // Default is ./node_modules/.astro/
       'redirect_from.json'
