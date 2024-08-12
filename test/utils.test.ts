@@ -12,7 +12,7 @@ describe('getMarkdownFiles', () => {
   it('should return an array of markdown files from the given directory', async () => {
     const files = await getMarkdownFiles('./test/__fixtures__/markdown')
     expect(files).toBeInstanceOf(Array)
-    expect(files).toHaveLength(4)
+    expect(files).toHaveLength(5)
   })
 })
 
