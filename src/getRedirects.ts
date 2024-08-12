@@ -20,17 +20,19 @@ export async function getRedirects(
     const frontmatter = await getMarkdownFrontmatter(path.join(srcDir, file))
     let redirectFrom: string[] = []
 
-    if (frontmatter?.redirect_from){
+    if (frontmatter?.redirect_from) {
       if (typeof frontmatter?.redirect_from === 'string') {
         redirectFrom = [frontmatter.redirect_from]
       } else if (Array.isArray(frontmatter?.redirect_from)) {
         redirectFrom = frontmatter.redirect_from
       } else {
-        logger.warn(`Unexpected type ${typeof frontmatter?.redirect_from} for redirect_from in file: ${file}`)
+        logger.warn(
+          `Unexpected type ${typeof frontmatter?.redirect_from} for redirect_from in file: ${file}`
+        )
       }
     }
 
-    redirectFrom = redirectFrom.filter(redirect => {
+    redirectFrom = redirectFrom.filter((redirect) => {
       if (isValidDomainRelativePath(redirect)) {
         return true
       }
