@@ -1,3 +1,6 @@
 {
-  "extends": ["@kremalicious/config/biome"]
+  "extends": ["@kremalicious/config/biome"],
+  "formatter": {
+    "lineEnding": "lf"
+  }
 }
