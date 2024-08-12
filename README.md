@@ -142,6 +142,12 @@ redirect_from:
 ---
 ```
 
+Alternatively, you can use a string instead of a list for a single redirect:
+
+```yaml
+redirect_from: /old-url
+```
+
 ## [More Documentation](https://kremalicious.com/astro-redirect-from/)
 
 Find more explanations, all about server-side redirects, and learn about additional integrations which can be used in combination with astro-redirect-from.
