@@ -180,6 +180,12 @@ npm run test:unit
 npm test
 ```
 
+If linting errors are encountered, try to fix it automatically with:
+
+```bash
+npm run format
+```
+
 ## Changelog
 
 See [CHANGELOG.md](CHANGELOG.md).
