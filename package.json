@@ -37,7 +37,7 @@
     "vitest": "^2.0.5"
   },
   "dependencies": {
-    "astro": ">= 3",
+    "astro": ">= 4",
     "globby": "^14.0.2",
     "gray-matter": "^4.0.3"
   },
