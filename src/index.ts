@@ -1,5 +1,6 @@
 import fs from 'node:fs'
 import path from 'node:path'
+import url from 'node:url'
 import type { AstroIntegration } from 'astro'
 import { getRedirects } from './getRedirects.js'
 import { getMarkdownFiles, getSlugFromFilePath, writeJson } from './utils.js'
@@ -47,11 +48,13 @@ export async function initPlugin(
 
     updateConfig({ redirects })
 
-    if (!fs.existsSync(config.cacheDir.pathname)) {
-      fs.mkdirSync(config.cacheDir.pathname, { recursive: true })
+    const cacheDirPath = url.fileURLToPath(config.cacheDir)
+
+    if (!fs.existsSync(cacheDirPath)) {
+      fs.mkdirSync(cacheDirPath, { recursive: true })
     }
     const redirectFilePath = path.join(
-      config.cacheDir.pathname, // Default is ./node_modules/.astro/
+      cacheDirPath, // Default is ./node_modules/.astro/
       'redirect_from.json'
     )
     await writeJson(redirectFilePath, redirects)
