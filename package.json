@@ -42,8 +42,7 @@
     "gray-matter": "^4.0.3"
   },
   "engines": {
-    "node": ">=18.18.0",
-    "npm": ">=6.14.0"
+    "node": ">=20"
   },
   "release-it": {
     "hooks": {
