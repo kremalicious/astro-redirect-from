@@ -34,7 +34,7 @@
 
 The plugin is designed to work without configuration, especially if your project aligns with Astro's default settings.
 
-- Astro v3 (v2 probably works too, but is not tested)
+- Astro v3+ (v2 probably works too, but is not tested)
 - Markdown files should be in a directory (default is `src/pages/`)
 - Slugs are extracted either from the frontmatter or the file/folder path
 
@@ -200,7 +200,7 @@ See [CHANGELOG.md](CHANGELOG.md).
 
 The MIT License
 
-Copyright (c) 2023 Matthias Kretschmann
+Copyright (c) 2024 Matthias Kretschmann
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
