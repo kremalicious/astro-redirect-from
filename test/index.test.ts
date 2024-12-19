@@ -1,3 +1,4 @@
+import fs from 'node:fs'
 import { describe, expect, it, vi } from 'vitest'
 import * as redirects from '../src/getRedirects'
 import astroRedirectFrom, { type HookOptions, initPlugin } from '../src/index'
@@ -12,7 +13,7 @@ const mockLogger = {
 const hookOptionsMock = {
   logger: mockLogger,
   config: {
-    cacheDir: { pathname: './node_modules/.astro/' }
+    cacheDir: new URL('file://node_modules/.astro/')
   },
   command: 'dev',
   updateConfig: vi.fn()
@@ -53,6 +54,9 @@ describe('initPlugin', () => {
 
     const writeJsonSpy = vi.spyOn(utils, 'writeJson')
     writeJsonSpy.mockImplementation(() => Promise.resolve())
+
+    vi.spyOn(fs, 'existsSync').mockReturnValue(true)
+    vi.spyOn(fs, 'mkdirSync').mockImplementation(() => undefined)
 
     await initPlugin(hookOptionsMock)
 
