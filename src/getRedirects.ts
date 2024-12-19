@@ -11,7 +11,7 @@ export async function getRedirects(
   files: string[],
   srcDir: string,
   getSlug: (filePath: string) => string,
-  command: 'dev' | 'build' | 'preview',
+  command: 'dev' | 'build' | 'preview' | 'sync',
   logger: { warn: (msg: string) => void }
 ) {
   let redirects: Redirects = {}
