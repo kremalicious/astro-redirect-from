@@ -1,4 +1,6 @@
 import fs from 'node:fs'
+import path from 'node:path'
+import url from 'node:url'
 import { describe, expect, it, vi } from 'vitest'
 import * as redirects from '../src/getRedirects'
 import astroRedirectFrom, { type HookOptions, initPlugin } from '../src/index'
@@ -10,10 +12,14 @@ const mockLogger = {
   error: vi.fn()
 }
 
+const cacheDirPath = url.pathToFileURL(
+  path.resolve('node_modules/.astro/')
+).href
+
 const hookOptionsMock = {
   logger: mockLogger,
   config: {
-    cacheDir: new URL('file://node_modules/.astro/')
+    cacheDir: new URL(cacheDirPath)
   },
   command: 'dev',
   updateConfig: vi.fn()
