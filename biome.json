@@ -1,6 +1,7 @@
 {
   "extends": ["@kremalicious/config/biome"],
   "formatter": {
-    "useEditorconfig": true
+    "useEditorconfig": true,
+    "lineEnding": "lf"
   }
 }
