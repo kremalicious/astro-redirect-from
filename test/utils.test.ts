@@ -49,7 +49,7 @@ describe('writeJson', () => {
   afterAll(async () => {
     try {
       await fs.unlink(testFilePath)
-    } catch (error) {
+    } catch (_error) {
       return
     }
   })
