@@ -10,7 +10,7 @@
   "types": "./dist/@types/index.d.ts",
   "scripts": {
     "build": "rm -rf ./dist && tsc",
-    "start": "rm -rf ./dist && tsc --watch",
+    "dev": "rm -rf ./dist && tsc --watch",
     "test": "npm run validate && npm run test:unit",
     "test:unit": "vitest run --coverage --config ./test/vitest.config.ts",
     "lint": "biome check .",

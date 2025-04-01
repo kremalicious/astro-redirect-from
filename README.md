@@ -158,7 +158,7 @@ Find more explanations, all about server-side redirects, and learn about additio
 
 ```bash
 npm i
-npm start
+npm run dev
 
 # production build
 npm run build
