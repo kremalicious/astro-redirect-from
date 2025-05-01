@@ -27,6 +27,22 @@ jobs:
       - run: npm ci
       - run: npm run lint
 
+  typecheck:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        node: ['22']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run typecheck
+
   test:
     runs-on: ${{ matrix.os }}
     strategy:

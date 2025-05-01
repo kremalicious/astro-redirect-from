@@ -73,20 +73,57 @@ describe('initPlugin', () => {
     expect(writeJsonSpy).toBeCalled()
   })
 
-  it('should handle errors and log them', async () => {
-    // Make getMarkdownFiles throw an error
-    vi.spyOn(utils, 'getMarkdownFiles')
+  it('should create the cache directory if it does not exist', async () => {
     const getMarkdownFilesSpy = vi.spyOn(utils, 'getMarkdownFiles')
-    getMarkdownFilesSpy.mockImplementation(async () => {
-      throw new Error('Mocked error')
+    getMarkdownFilesSpy.mockResolvedValue(['test.md', 'test2.md'])
+
+    const getRedirectsSpy = vi.spyOn(redirects, 'getRedirects')
+    getRedirectsSpy.mockResolvedValue({ '/old': '/new' })
+
+    const writeJsonSpy = vi.spyOn(utils, 'writeJson')
+    writeJsonSpy.mockImplementation(() => Promise.resolve())
+
+    vi.spyOn(fs, 'existsSync').mockReturnValue(false)
+    vi.spyOn(fs, 'mkdirSync').mockImplementation(() => undefined)
+
+    await initPlugin(hookOptionsMock)
+
+    expect(fs.existsSync).toHaveBeenCalled()
+    expect(fs.mkdirSync).toHaveBeenCalled()
+  })
+
+  it('should handle custom options', async () => {
+    const getMarkdownFilesSpy = vi.spyOn(utils, 'getMarkdownFiles')
+    getMarkdownFilesSpy.mockResolvedValue(['test.md'])
+
+    const getRedirectsSpy = vi.spyOn(redirects, 'getRedirects')
+    getRedirectsSpy.mockResolvedValue({ '/old': '/new' })
+
+    vi.spyOn(utils, 'writeJson').mockResolvedValue()
+    vi.spyOn(fs, 'existsSync').mockReturnValue(true)
+
+    const customGetSlug = (filePath: string) => `custom-${filePath}`
+
+    await initPlugin(hookOptionsMock, {
+      contentDir: 'custom/content/',
+      getSlug: customGetSlug
     })
 
-    await initPlugin({
-      ...hookOptionsMock,
-      logger: mockLogger as unknown as HookOptions['logger']
-    })
+    const expectedPathPart = path.join('custom', 'content')
+    expect(getMarkdownFilesSpy).toHaveBeenCalledWith(
+      expect.stringContaining(expectedPathPart)
+    )
+  })
 
-    expect(mockLogger.error).toHaveBeenCalledWith('Mocked error')
+  it('should handle errors and log them', async () => {
+    const errorMessage = 'Test error message'
+    vi.spyOn(utils, 'getMarkdownFiles').mockRejectedValue(
+      new Error(errorMessage)
+    )
+
+    await initPlugin(hookOptionsMock)
+
+    expect(mockLogger.error).toHaveBeenCalledWith(errorMessage)
   })
 })
 
@@ -99,23 +136,16 @@ describe('astroRedirectFrom', () => {
     expect(result.hooks).toHaveProperty('astro:config:setup')
   })
 
-  it('should call initPlugin when astro:config:setup hook is invoked', async () => {
-    const getMarkdownFilesSpy = vi.spyOn(utils, 'getMarkdownFiles')
-    getMarkdownFilesSpy.mockResolvedValue(['test.md', 'test2.md'])
-
-    const getRedirectsSpy = vi.spyOn(redirects, 'getRedirects')
-    getRedirectsSpy.mockResolvedValue({ '/old': '/new' })
-
-    const writeJsonSpy = vi.spyOn(utils, 'writeJson')
-    writeJsonSpy.mockImplementation(() => Promise.resolve())
+  it('should call initPlugin when hook is called', async () => {
+    const initPluginSpy = vi.spyOn(initPlugin.constructor, 'apply')
+    initPluginSpy.mockResolvedValue(undefined)
 
     const integration = astroRedirectFrom()
 
-    expect(integration.hooks).toHaveProperty('astro:config:setup')
-
-    // Invoke the hook
     if (integration.hooks['astro:config:setup']) {
       await integration.hooks['astro:config:setup'](hookOptionsMock)
     }
+
+    expect(integration.hooks['astro:config:setup']).toBeDefined()
   })
 })

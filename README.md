@@ -76,10 +76,8 @@ npm run release
 ```bash
 npm run lint
 npm run typecheck
-# runs unit tests through vitest
-npm run test:unit
 
-# all of the above commands together
+# runs unit tests through vitest
 npm test
 ```
 

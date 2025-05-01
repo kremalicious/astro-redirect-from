@@ -1,14 +1,8 @@
 {
   "extends": "astro/tsconfigs/strict",
-  "include": ["src"],
-  "exclude": ["node_modules", "dist"],
+  "include": ["src", "test"],
   "compilerOptions": {
-    "outDir": "./dist",
-    "types": ["vite/client"],
-    "declaration": true,
-    "declarationDir": "./dist/@types",
-    // overwrite astro/tsconfigs values
-    "noEmit": false,
-    "allowImportingTsExtensions": false
+    "paths": { "@/*": ["./*"] },
+    "types": ["vite/client"]
   }
 }
