@@ -109,8 +109,9 @@ describe('initPlugin', () => {
       getSlug: customGetSlug
     })
 
+    const expectedPathPart = path.join('custom', 'content')
     expect(getMarkdownFilesSpy).toHaveBeenCalledWith(
-      expect.stringContaining('custom/content/')
+      expect.stringContaining(expectedPathPart)
     )
   })
 
