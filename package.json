@@ -9,7 +9,7 @@
   "main": "./dist/index.js",
   "types": "./dist/@types/index.d.ts",
   "scripts": {
-    "build": "rm -rf ./dist && tsc",
+    "build": "rm -rf ./dist && tsc -p tsconfig.build.json",
     "dev": "rm -rf ./dist && tsc --watch",
     "test": "npm run validate && npm run test:unit",
     "test:unit": "vitest run --coverage --config ./test/vitest.config.ts",
@@ -90,8 +90,6 @@
     }
   ],
   "lint-staged": {
-    "*": [
-      "biome check --write --no-errors-on-unmatched --files-ignore-unknown=true"
-    ]
+    "*": ["biome check --no-errors-on-unmatched --files-ignore-unknown=true"]
   }
 }

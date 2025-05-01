@@ -10,3 +10,4 @@ coverage
 # build output
 dist/
 test/test.json
+*.tsbuildinfo
