@@ -98,8 +98,8 @@ jobs:
             echo "Expected file dist/utils.js is missing!"
             exit 1
           fi
-          if [ ! -d "dist/types" ]; then
-            echo "Expected directory dist/types is missing!"
+          if [ ! -d "dist/@types" ]; then
+            echo "Expected directory dist/@types is missing!"
             exit 1
           fi
           echo "All expected build files are present ✅"
