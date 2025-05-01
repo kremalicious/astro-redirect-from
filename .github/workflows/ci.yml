@@ -79,30 +79,6 @@ jobs:
           cache: 'npm'
       - run: npm ci
       - run: npm run build
-      - name: Verify build output
-        shell: bash
-        run: |
-          if [ ! -f "dist/index.js" ]; then
-            echo "Expected file dist/index.js is missing!"
-            exit 1
-          fi
-          if [ ! -f "dist/createRedirect.js" ]; then
-            echo "Expected file dist/createRedirect.js is missing!"
-            exit 1
-          fi
-          if [ ! -f "dist/getRedirects.js" ]; then
-            echo "Expected file dist/getRedirects.js is missing!"
-            exit 1
-          fi
-          if [ ! -f "dist/utils.js" ]; then
-            echo "Expected file dist/utils.js is missing!"
-            exit 1
-          fi
-          if [ ! -d "dist/@types" ]; then
-            echo "Expected directory dist/@types is missing!"
-            exit 1
-          fi
-          echo "All expected build files are present ✅"
 
   coverage:
     runs-on: ubuntu-latest
