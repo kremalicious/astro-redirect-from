@@ -17,8 +17,7 @@
     "typecheck": "tsc --noEmit --pretty",
     "changelog": "auto-changelog -p",
     "release": "release-it --non-interactive",
-    "prepublishOnly": "npm run build",
-    "prepare": "husky"
+    "prepublishOnly": "npm run build"
   },
   "files": ["./dist"],
   "devDependencies": {
@@ -28,7 +27,6 @@
     "@vitest/coverage-v8": "^3.1.2",
     "astro": "^5.7.10",
     "auto-changelog": "^2.5.0",
-    "husky": "^9.1.7",
     "release-it": "^19.0.1",
     "typescript": "^5.8.3",
     "vite": "^6.3.4",
@@ -85,8 +83,5 @@
       "type": "individual",
       "url": "https://kremalicious.com/thanks"
     }
-  ],
-  "lint-staged": {
-    "*": ["biome check --no-errors-on-unmatched --files-ignore-unknown=true"]
-  }
+  ]
 }
