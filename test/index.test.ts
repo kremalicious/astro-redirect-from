@@ -138,7 +138,7 @@ describe('initPlugin', () => {
 
     expect(getRedirectsSpy).toHaveBeenCalledWith(
       ['test.md'],
-      '/Users/m/Code/astro-redirect-from/src/pages/',
+      expect.any(String),
       expect.any(Function),
       'dev',
       expect.any(Object),
