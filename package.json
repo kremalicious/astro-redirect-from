@@ -19,9 +19,7 @@
     "release": "release-it --non-interactive",
     "prepublishOnly": "npm run build"
   },
-  "files": [
-    "./dist"
-  ],
+  "files": ["./dist"],
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
     "@kremalicious/config": "^1.1.0",
