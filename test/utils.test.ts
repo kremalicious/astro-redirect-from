@@ -4,6 +4,7 @@ import {
   getMarkdownFiles,
   getMarkdownFrontmatter,
   getSlugFromFilePath,
+  joinWithBase,
   prependForwardSlash,
   writeJson
 } from '../src/utils'
@@ -88,5 +89,32 @@ describe('prependForwardSlash', () => {
     const string = '/'
     const result4 = prependForwardSlash(string)
     expect(result4).toBe('/')
+  })
+})
+
+describe('joinWithBase', () => {
+  it('should return path with leading slash when no base', () => {
+    expect(joinWithBase(undefined, 'path')).toBe('/path')
+    expect(joinWithBase('/', 'path')).toBe('/path')
+  })
+
+  it('should join base path with path', () => {
+    expect(joinWithBase('/my-site', 'path')).toBe('/my-site/path')
+    expect(joinWithBase('/my-site', '/path')).toBe('/my-site/path')
+  })
+
+  it('should handle base path without leading slash', () => {
+    expect(joinWithBase('my-site', 'path')).toBe('/my-site/path')
+  })
+
+  it('should handle base path with trailing slash', () => {
+    expect(joinWithBase('/my-site/', 'path')).toBe('/my-site/path')
+    expect(joinWithBase('/my-site/', '/path')).toBe('/my-site/path')
+  })
+
+  it('should handle nested base paths', () => {
+    expect(joinWithBase('/projects/my-site', 'docs/page')).toBe(
+      '/projects/my-site/docs/page'
+    )
   })
 })

@@ -55,6 +55,33 @@ describe('getRedirects', () => {
     })
   })
 
+  it('should return correct redirects with base path', async () => {
+    // Restore the original getMarkdownFrontmatter just for this test
+    const actual =
+      await vi.importActual<typeof import('@/src/utils')>('@/src/utils')
+    vi.mocked(utils.getMarkdownFrontmatter).mockImplementation(
+      actual.getMarkdownFrontmatter
+    )
+
+    const files = ['posts/hello-world.md']
+    const getSlug = () => '/posts/hello-world'
+    const basePath = '/my-site'
+
+    const result = await getRedirects(
+      files,
+      srcDir,
+      getSlug,
+      'build',
+      console,
+      basePath
+    )
+
+    expect(result).toStrictEqual({
+      '/my-site/hello-world-old': '/my-site/posts/hello-world',
+      '/my-site/hello-world-old-234837': '/my-site/posts/hello-world'
+    })
+  })
+
   it('should warn when redirect_from has unexpected type', async () => {
     const mockLogger = { warn: vi.fn() }
 
