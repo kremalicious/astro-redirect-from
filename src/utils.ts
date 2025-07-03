@@ -42,3 +42,17 @@ export async function writeJson<T>(path: PathLike, data: T) {
 export function prependForwardSlash(str: string) {
   return str.startsWith('/') ? str : `/${str}`
 }
+
+export function joinWithBase(basePath: string | undefined, path: string) {
+  if (!basePath || basePath === '/') {
+    return prependForwardSlash(path)
+  }
+
+  const normalizedBase = basePath.startsWith('/') ? basePath : `/${basePath}`
+  const cleanBase = normalizedBase.endsWith('/')
+    ? normalizedBase.slice(0, -1)
+    : normalizedBase
+  const normalizedPath = prependForwardSlash(path)
+
+  return `${cleanBase}${normalizedPath}`
+}

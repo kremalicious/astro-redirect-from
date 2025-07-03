@@ -12,7 +12,8 @@ export async function getRedirects(
   srcDir: string,
   getSlug: (filePath: string) => string,
   command: 'dev' | 'build' | 'preview' | 'sync',
-  logger: { warn: (msg: string) => void }
+  logger: { warn: (msg: string) => void },
+  basePath?: string
 ) {
   let redirects: Redirects = {}
 
@@ -46,7 +47,7 @@ export async function getRedirects(
     const postSlug = frontmatter.slug || getSlug(file)
     if (!postSlug) continue
 
-    redirects = createRedirect(redirects, redirectFrom, postSlug)
+    redirects = createRedirect(redirects, redirectFrom, postSlug, basePath)
   }
 
   return redirects

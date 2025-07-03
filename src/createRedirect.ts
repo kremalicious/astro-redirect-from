@@ -1,16 +1,17 @@
 import type { Redirects } from './index.js'
-import { prependForwardSlash } from './utils.js'
+import { joinWithBase } from './utils.js'
 
 export function createRedirect(
   redirects: Redirects,
   redirectFrom: string[],
-  postSlug: string
+  postSlug: string,
+  basePath?: string
 ) {
-  const newPostSlug = prependForwardSlash(postSlug)
+  const newPostSlug = joinWithBase(basePath, postSlug)
 
-  for (let slug of redirectFrom) {
-    slug = prependForwardSlash(slug)
-    redirects[slug] = newPostSlug
+  for (const slug of redirectFrom) {
+    const fromPath = joinWithBase(basePath, slug)
+    redirects[fromPath] = newPostSlug
   }
 
   return redirects
