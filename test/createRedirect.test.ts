@@ -18,28 +18,22 @@ describe('createRedirect', () => {
     })
   })
 
-  it('should prepend slash everywhere', () => {
+  it('should prepend slash to destination paths only', () => {
     const initialRedirects: Record<string, string> = {}
     const redirectFrom = ['old-url-1']
-    let postSlug = '/new-url'
+    const postSlug = 'new-url'
 
-    let result = createRedirect(initialRedirects, redirectFrom, postSlug)
+    const result = createRedirect(initialRedirects, redirectFrom, postSlug)
 
-    expect(result).toStrictEqual({
-      '/old-url-1': '/new-url'
-    })
-
-    postSlug = 'new-url'
-    result = createRedirect(initialRedirects, redirectFrom, postSlug)
     expect(result).toStrictEqual({
       '/old-url-1': '/new-url'
     })
   })
 
-  it('should apply base path to both source and destination', () => {
+  it('should apply base path to destination paths only', () => {
     const initialRedirects: Record<string, string> = {}
-    const redirectFrom = ['old-url', '/old-url-2']
-    const postSlug = 'new-url'
+    const redirectFrom = ['/old-path', 'another-old-path']
+    const postSlug = '/new-path'
     const basePath = '/my-site'
 
     const result = createRedirect(
@@ -50,49 +44,25 @@ describe('createRedirect', () => {
     )
 
     expect(result).toStrictEqual({
-      '/my-site/old-url': '/my-site/new-url',
-      '/my-site/old-url-2': '/my-site/new-url'
+      // Source paths normalized with leading slash (but no base applied)
+      '/old-path': '/my-site/new-path',
+      '/another-old-path': '/my-site/new-path'
     })
   })
 
-  it('should handle empty or root base path', () => {
-    const initialRedirects: Record<string, string> = {}
-    const redirectFrom = ['old-url']
-    const postSlug = 'new-url'
+  it('should handle base path edge cases', () => {
+    const redirects: Record<string, string> = {}
 
-    // Test with undefined base
-    let result = createRedirect(
-      initialRedirects,
-      redirectFrom,
-      postSlug,
-      undefined
-    )
-    expect(result).toStrictEqual({
-      '/old-url': '/new-url'
-    })
+    // Test with no base path
+    const result1 = createRedirect(redirects, ['/old'], '/new')
+    expect(result1['/old']).toBe('/new')
 
-    // Test with root base
-    result = createRedirect(initialRedirects, redirectFrom, postSlug, '/')
-    expect(result).toStrictEqual({
-      '/old-url': '/new-url'
-    })
-  })
+    // Test with base path as '/'
+    const result2 = createRedirect({}, ['/old'], '/new', '/')
+    expect(result2['/old']).toBe('/new')
 
-  it('should normalize base path with trailing slashes', () => {
-    const initialRedirects: Record<string, string> = {}
-    const redirectFrom = ['old-url']
-    const postSlug = 'new-url'
-    const basePath = '/my-site/'
-
-    const result = createRedirect(
-      initialRedirects,
-      redirectFrom,
-      postSlug,
-      basePath
-    )
-
-    expect(result).toStrictEqual({
-      '/my-site/old-url': '/my-site/new-url'
-    })
+    // Test with base path without leading slash
+    const result3 = createRedirect({}, ['/old'], '/new', 'my-site')
+    expect(result3['/old']).toBe('/my-site/new')
   })
 })

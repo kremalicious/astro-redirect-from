@@ -129,19 +129,19 @@ describe('initPlugin', () => {
     getMarkdownFilesSpy.mockResolvedValue(['test.md'])
 
     const getRedirectsSpy = vi.spyOn(redirects, 'getRedirects')
-    getRedirectsSpy.mockResolvedValue({ '/my-site/old': '/my-site/new' })
+    getRedirectsSpy.mockResolvedValue({ '/old': '/my-site/new' })
 
     vi.spyOn(utils, 'writeJson').mockResolvedValue()
-    vi.spyOn(fs, 'existsSync').mockReturnValue(true)
+    vi.spyOn(fs, 'mkdirSync').mockReturnValue(undefined)
 
     await initPlugin(hookOptionsWithBase)
 
     expect(getRedirectsSpy).toHaveBeenCalledWith(
-      expect.any(Array),
-      expect.any(String),
+      ['test.md'],
+      '/Users/m/Code/astro-redirect-from/src/pages/',
       expect.any(Function),
       'dev',
-      mockLogger,
+      expect.any(Object),
       '/my-site'
     )
   })
