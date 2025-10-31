@@ -19,21 +19,23 @@
     "release": "release-it --non-interactive",
     "prepublishOnly": "npm run build"
   },
-  "files": ["./dist"],
+  "files": [
+    "./dist"
+  ],
   "devDependencies": {
-    "@biomejs/biome": "^1.9.4",
-    "@kremalicious/config": "^1.1.0",
+    "@biomejs/biome": "^2.3.2",
+    "@kremalicious/config": "^2.2.0",
     "@types/node": "^22.15.3",
-    "@vitest/coverage-v8": "^3.1.2",
-    "astro": "^5.7.10",
+    "@vitest/coverage-v8": "^4.0.5",
+    "astro": "^5.15.3",
     "auto-changelog": "^2.5.0",
-    "release-it": "^19.0.1",
-    "typescript": "^5.8.3",
-    "vite": "^6.3.4",
-    "vitest": "^3.1.2"
+    "release-it": "^19.0.5",
+    "typescript": "^5.9.3",
+    "vite": "^7.1.12",
+    "vitest": "^4.0.5"
   },
   "dependencies": {
-    "globby": "^14.1.0",
+    "globby": "^15.0.0",
     "gray-matter": "^4.0.3"
   },
   "peerDependencies": {

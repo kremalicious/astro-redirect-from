@@ -13,8 +13,7 @@ export default defineConfig({
     environment: 'node',
     include: ['./test/**/*.test.?(c|m)[jt]s?(x)'],
     coverage: {
-      all: true,
-      include: ['src']
+      include: ['src/**/*.ts']
     }
   }
 })

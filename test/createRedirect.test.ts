@@ -1,5 +1,5 @@
-import { createRedirect } from '@/src/createRedirect'
 import { describe, expect, it } from 'vitest'
+import { createRedirect } from '@/src/createRedirect'
 
 describe('createRedirect', () => {
   it('should merge initialRedirects with newly found ones', () => {
