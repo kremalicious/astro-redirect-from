@@ -1,6 +1,6 @@
 {
   "name": "astro-redirect-from",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "description": "🎯 Set redirect urls in your frontmatter within your Astro site's Markdown files. Mimics the behavior of jekyll-redirect-from.",
   "author": "Matthias Kretschmann <m@kretschmann.io>",
   "homepage": "https://kremalicious.com/astro-redirect-from",
