@@ -67,7 +67,6 @@ describe('getRedirects', () => {
     vi.mocked(utils.getMarkdownFrontmatter).mockImplementation(
       async (file: string) => {
         if (file.includes('test-file.md')) {
-          // biome-ignore lint/style/useNamingConvention: redirect_from is part of frontmatter API
           return { redirect_from: ['/old-path', 'another-old'] }
         }
         return {}
@@ -96,7 +95,6 @@ describe('getRedirects', () => {
 
   it('should log a warning when redirect_from is an unexpected type', async () => {
     vi.mocked(utils.getMarkdownFrontmatter).mockResolvedValue({
-      // biome-ignore lint/style/useNamingConvention: redirect_from is part of frontmatter API
       redirect_from: 123
     })
 
@@ -129,7 +127,6 @@ describe('getRedirects', () => {
 
   it('should handle single string redirect_from', async () => {
     vi.mocked(utils.getMarkdownFrontmatter).mockResolvedValue({
-      // biome-ignore lint/style/useNamingConvention: redirect_from is part of frontmatter API
       redirect_from: '/single-redirect'
     })
 
@@ -151,7 +148,6 @@ describe('getRedirects', () => {
 
   it('should handle array of redirect_from', async () => {
     vi.mocked(utils.getMarkdownFrontmatter).mockResolvedValue({
-      // biome-ignore lint/style/useNamingConvention: redirect_from is part of frontmatter API
       redirect_from: ['/redirect-1', '/redirect-2']
     })
 
