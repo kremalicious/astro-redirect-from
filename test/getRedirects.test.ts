@@ -1,5 +1,5 @@
-import { getRedirects } from '@/src/getRedirects'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { getRedirects } from '@/src/getRedirects'
 
 // Partial mock - only mock what we need to control for specific tests
 vi.mock('../src/utils', async () => {
@@ -59,7 +59,6 @@ describe('getRedirects', () => {
     const mockLogger = { warn: vi.fn() }
 
     vi.mocked(utils.getMarkdownFrontmatter).mockResolvedValue({
-      // biome-ignore lint/style/useNamingConvention:
       redirect_from: { foo: 'bar' }, // Object instead of string/array
       slug: '/test'
     })
@@ -77,7 +76,6 @@ describe('getRedirects', () => {
     const mockLogger = { warn: vi.fn() }
 
     vi.mocked(utils.getMarkdownFrontmatter).mockResolvedValue({
-      // biome-ignore lint/style/useNamingConvention:
       redirect_from: [
         '/valid-path',
         'http://invalid-with-protocol.com',
@@ -109,7 +107,6 @@ describe('getRedirects', () => {
 
     // Mock a frontmatter with redirect_from but getSlug will return falsy
     vi.mocked(utils.getMarkdownFrontmatter).mockResolvedValue({
-      // biome-ignore lint/style/useNamingConvention:
       redirect_from: ['/some-redirect-path']
       // No slug property
     })

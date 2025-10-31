@@ -4,8 +4,8 @@
 
 [![npm package](https://img.shields.io/npm/v/astro-redirect-from.svg)](https://www.npmjs.com/package/astro-redirect-from)
 [![CI](https://github.com/kremalicious/astro-redirect-from/actions/workflows/ci.yml/badge.svg)](https://github.com/kremalicious/astro-redirect-from/actions/workflows/ci.yml)
-[![Maintainability](https://api.codeclimate.com/v1/badges/a20dc7ebee797c2d1e43/maintainability)](https://codeclimate.com/github/kremalicious/astro-redirect-from/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/a20dc7ebee797c2d1e43/test_coverage)](https://codeclimate.com/github/kremalicious/astro-redirect-from/test_coverage)
+<!-- [![Maintainability](https://api.codeclimate.com/v1/badges/a20dc7ebee797c2d1e43/maintainability)](https://codeclimate.com/github/kremalicious/astro-redirect-from/maintainability) -->
+<!-- [![Test Coverage](https://api.codeclimate.com/v1/badges/a20dc7ebee797c2d1e43/test_coverage)](https://codeclimate.com/github/kremalicious/astro-redirect-from/test_coverage) -->
 
 > 🎯 Set redirect urls in your frontmatter within your [Astro](https://astro.build) site's Markdown files. Mimics the behavior of [jekyll-redirect-from](https://github.com/jekyll/jekyll-redirect-from) and [gatsby-redirect-from](https://kremalicious.com/gatsby-redirect-from/).
 >
