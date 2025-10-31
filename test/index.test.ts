@@ -19,7 +19,8 @@ const cacheDirPath = url.pathToFileURL(
 const hookOptionsMock = {
   logger: mockLogger,
   config: {
-    cacheDir: new URL(cacheDirPath)
+    cacheDir: new URL(cacheDirPath),
+    base: undefined
   },
   command: 'dev',
   updateConfig: vi.fn()
@@ -112,6 +113,36 @@ describe('initPlugin', () => {
     const expectedPathPart = path.join('custom', 'content')
     expect(getMarkdownFilesSpy).toHaveBeenCalledWith(
       expect.stringContaining(expectedPathPart)
+    )
+  })
+
+  it('should pass base path from config to getRedirects', async () => {
+    const hookOptionsWithBase = {
+      ...hookOptionsMock,
+      config: {
+        ...hookOptionsMock.config,
+        base: '/my-site'
+      }
+    } as unknown as HookOptions
+
+    const getMarkdownFilesSpy = vi.spyOn(utils, 'getMarkdownFiles')
+    getMarkdownFilesSpy.mockResolvedValue(['test.md'])
+
+    const getRedirectsSpy = vi.spyOn(redirects, 'getRedirects')
+    getRedirectsSpy.mockResolvedValue({ '/old': '/my-site/new' })
+
+    vi.spyOn(utils, 'writeJson').mockResolvedValue()
+    vi.spyOn(fs, 'mkdirSync').mockReturnValue(undefined)
+
+    await initPlugin(hookOptionsWithBase)
+
+    expect(getRedirectsSpy).toHaveBeenCalledWith(
+      ['test.md'],
+      expect.any(String),
+      expect.any(Function),
+      'dev',
+      expect.any(Object),
+      '/my-site'
     )
   })
 
