@@ -42,7 +42,7 @@
     "astro": ">=3.0.0"
   },
   "engines": {
-    "node": "22",
+    "node": ">=22.0.0",
     "astro": ">=3.0.0"
   },
   "release-it": {
@@ -85,5 +85,6 @@
       "type": "individual",
       "url": "https://kremalicious.com/thanks"
     }
-  ]
+  ],
+  "packageManager": "npm@11.6.0"
 }
