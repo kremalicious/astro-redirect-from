@@ -13,7 +13,8 @@ export default defineConfig({
     environment: 'node',
     include: ['./test/**/*.test.?(c|m)[jt]s?(x)'],
     coverage: {
-      include: ['src/**/*.ts']
+      include: ['src/**/*.ts'],
+      reporter: ['text', 'lcov']
     }
   }
 })
