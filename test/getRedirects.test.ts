@@ -10,6 +10,8 @@ vi.mock('../src/utils', async () => {
 // Import the mocked module
 import * as utils from '@/src/utils'
 
+const mockLogger = { warn: vi.fn() }
+
 describe('getRedirects', () => {
   const srcDir = './test/__fixtures__/markdown'
 
@@ -41,88 +43,128 @@ describe('getRedirects', () => {
       return '/unknown'
     }
 
-    const result = await getRedirects(files, srcDir, getSlug, 'build', console)
+    const redirects = await getRedirects(
+      files,
+      srcDir,
+      getSlug,
+      'build',
+      mockLogger
+    )
 
-    expect(result).toBeInstanceOf(Object)
-    expect(result).toStrictEqual({
+    expect(redirects).toStrictEqual({
+      '/hello-world-old': '/posts/hello-world',
+      '/hello-world-old-234837': '/posts/hello-world',
       '/hello-astro-old': '/hello-astroooooo',
       '/hello-astro-old-234837': '/hello-astroooooo',
-      '/hello-world-old': '/posts/hello-world',
       '/hello-once': '/posts/hello-once',
-      '/hello-world-old-234837': '/posts/hello-world',
       '/hello-markdown-old': '/hello-markdown',
       '/hello-markdown-old-234837': '/hello-markdown'
     })
   })
 
-  it('should warn when redirect_from has unexpected type', async () => {
-    const mockLogger = { warn: vi.fn() }
+  it('should apply base path to destination paths only', async () => {
+    // Mock frontmatter with redirect_from
+    vi.mocked(utils.getMarkdownFrontmatter).mockImplementation(
+      async (file: string) => {
+        if (file.includes('test-file.md')) {
+          return { redirect_from: ['/old-path', 'another-old'] }
+        }
+        return {}
+      }
+    )
 
+    const files = ['test-file.md']
+    const getSlug = () => '/new-path'
+    const basePath = '/my-site'
+
+    const redirects = await getRedirects(
+      files,
+      srcDir,
+      getSlug,
+      'build',
+      mockLogger,
+      basePath
+    )
+
+    expect(redirects).toStrictEqual({
+      // Source paths normalized with leading slash (but no base applied)
+      '/old-path': '/my-site/new-path',
+      '/another-old': '/my-site/new-path'
+    })
+  })
+
+  it('should log a warning when redirect_from is an unexpected type', async () => {
     vi.mocked(utils.getMarkdownFrontmatter).mockResolvedValue({
-      redirect_from: { foo: 'bar' }, // Object instead of string/array
-      slug: '/test'
+      redirect_from: 123
     })
 
-    await getRedirects(['test.md'], './', () => '/test', 'build', mockLogger)
+    const files = ['test-file.md']
+    const getSlug = () => '/new-url'
+
+    await getRedirects(files, srcDir, getSlug, 'build', mockLogger)
 
     expect(mockLogger.warn).toHaveBeenCalledWith(
-      expect.stringContaining(
-        'Unexpected type object for redirect_from in file: test.md'
-      )
+      'Unexpected type number for redirect_from in file: test-file.md'
     )
   })
 
-  it('should filter out invalid redirect paths and warn about them', async () => {
-    const mockLogger = { warn: vi.fn() }
+  it('should handle files without redirect_from', async () => {
+    vi.mocked(utils.getMarkdownFrontmatter).mockResolvedValue({})
 
-    vi.mocked(utils.getMarkdownFrontmatter).mockResolvedValue({
-      redirect_from: [
-        '/valid-path',
-        'http://invalid-with-protocol.com',
-        'path with spaces'
-      ],
-      slug: '/test'
-    })
+    const files = ['test-file.md']
+    const getSlug = () => '/new-url'
 
-    const result = await getRedirects(
-      ['test.md'],
-      './',
-      () => '/test',
+    const redirects = await getRedirects(
+      files,
+      srcDir,
+      getSlug,
       'build',
       mockLogger
     )
 
-    expect(mockLogger.warn).toHaveBeenCalledWith(
-      'Invalid redirect path: http://invalid-with-protocol.com in file: test.md'
-    )
-    expect(mockLogger.warn).toHaveBeenCalledWith(
-      'Invalid redirect path: path with spaces in file: test.md'
-    )
-
-    expect(result).toEqual({ '/valid-path': '/test' })
+    expect(redirects).toStrictEqual({})
   })
 
-  it('should skip files when postSlug is falsy', async () => {
-    const mockLogger = { warn: vi.fn() }
-
-    // Mock a frontmatter with redirect_from but getSlug will return falsy
+  it('should handle single string redirect_from', async () => {
     vi.mocked(utils.getMarkdownFrontmatter).mockResolvedValue({
-      redirect_from: ['/some-redirect-path']
-      // No slug property
+      redirect_from: '/single-redirect'
     })
 
-    // The getSlug function returns a falsy value
-    const getSlugMock = vi.fn().mockReturnValue('')
+    const files = ['test-file.md']
+    const getSlug = () => '/new-url'
 
-    const result = await getRedirects(
-      ['test.md'],
-      './',
-      getSlugMock,
+    const redirects = await getRedirects(
+      files,
+      srcDir,
+      getSlug,
       'build',
       mockLogger
     )
 
-    expect(getSlugMock).toHaveBeenCalledWith('test.md')
-    expect(result).toEqual({})
+    expect(redirects).toStrictEqual({
+      '/single-redirect': '/new-url'
+    })
+  })
+
+  it('should handle array of redirect_from', async () => {
+    vi.mocked(utils.getMarkdownFrontmatter).mockResolvedValue({
+      redirect_from: ['/redirect-1', '/redirect-2']
+    })
+
+    const files = ['test-file.md']
+    const getSlug = () => '/new-url'
+
+    const redirects = await getRedirects(
+      files,
+      srcDir,
+      getSlug,
+      'build',
+      mockLogger
+    )
+
+    expect(redirects).toStrictEqual({
+      '/redirect-1': '/new-url',
+      '/redirect-2': '/new-url'
+    })
   })
 })

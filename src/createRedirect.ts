@@ -1,16 +1,19 @@
 import type { Redirects } from './index.js'
-import { prependForwardSlash } from './utils.js'
+import { joinWithBase, prependForwardSlash } from './utils.js'
 
 export function createRedirect(
   redirects: Redirects,
   redirectFrom: string[],
-  postSlug: string
+  postSlug: string,
+  basePath?: string
 ) {
-  const newPostSlug = prependForwardSlash(postSlug)
+  // Only apply base config to destination paths, as Astro handles the source paths automatically
+  const newPostSlug = joinWithBase(basePath, postSlug)
 
-  for (let slug of redirectFrom) {
-    slug = prependForwardSlash(slug)
-    redirects[slug] = newPostSlug
+  for (const slug of redirectFrom) {
+    // Normalize source paths with leading slash for consistency
+    const normalizedSlug = prependForwardSlash(slug)
+    redirects[normalizedSlug] = newPostSlug
   }
 
   return redirects
