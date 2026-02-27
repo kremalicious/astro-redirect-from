@@ -23,19 +23,19 @@
     "./dist"
   ],
   "devDependencies": {
-    "@biomejs/biome": "^2.3.2",
+    "@biomejs/biome": "2.4.4",
     "@kremalicious/config": "^2.2.0",
-    "@types/node": "^22.15.3",
-    "@vitest/coverage-v8": "^4.0.5",
-    "astro": "^5.15.3",
+    "@types/node": "22.19.13",
+    "@vitest/coverage-v8": "4.0.18",
+    "astro": "5.18.0",
     "auto-changelog": "^2.5.0",
-    "release-it": "^19.0.5",
+    "release-it": "19.2.4",
     "typescript": "^5.9.3",
-    "vite": "^7.1.12",
-    "vitest": "^4.0.5"
+    "vite": "7.3.1",
+    "vitest": "4.0.18"
   },
   "dependencies": {
-    "globby": "^15.0.0",
+    "globby": "16.1.1",
     "gray-matter": "^4.0.3"
   },
   "peerDependencies": {
