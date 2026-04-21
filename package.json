@@ -27,7 +27,7 @@
     "@kremalicious/config": "^2.2.0",
     "@types/node": "22.19.13",
     "@vitest/coverage-v8": "4.0.18",
-    "astro": "5.18.0",
+    "astro": "6.1.6",
     "auto-changelog": "^2.5.0",
     "release-it": "19.2.4",
     "typescript": "^5.9.3",
